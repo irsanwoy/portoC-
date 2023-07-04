@@ -1,0 +1,248 @@
+#include<iostream>
+using namespace std;
+
+struct Tugas
+{
+    string judul;
+    string status;
+
+    Tugas *next;
+}*head,*tail,*newNode,*cur,*del,*before;
+
+void buatTugas(string judul, string status){
+    head = new Tugas();
+    head->judul = judul;
+    head->status = status;
+    head->next = NULL;
+    tail = head;
+}
+
+int countSingleLinkedList(){
+    cur = head;
+    int jumlah = 0;
+    while( cur != NULL ){
+        jumlah++;
+        cur = cur->next;
+    }
+    return jumlah;
+}
+
+void tambahAwal(string judul, string status){
+    newNode = new Tugas();
+    newNode->judul = judul;
+    newNode->status = status;
+    newNode->next = head;
+    head = newNode;
+}
+
+void tambahAkhir(string judul, string status){
+    newNode = new Tugas();
+    newNode->judul = judul;
+    newNode->status = status;
+    newNode->next = NULL;
+    tail->next = newNode;
+    tail = newNode;
+}
+
+void tambahTengah(string judul, string status, int posisi){
+    if( posisi < 1 || posisi > countSingleLinkedList() ){
+        cout << "Posisi diluar jangkauan" << endl;
+    }else if( posisi == 1){
+        cout << "Posisi bukan posisi tengah" << endl;
+    }else{
+        newNode = new Tugas();
+        newNode->judul = judul;
+        newNode->status = status;
+        cur = head;
+        int nomor = 1;
+        while( nomor < posisi - 1 ){
+            cur = cur->next;
+            nomor++;
+        }
+        newNode->next = cur->next;
+        cur->next = newNode;
+    }
+}
+
+void hapusAwal(){
+    del = head;
+    head = head->next;
+    delete del;
+}
+
+void hapusAkhir(){
+    del = tail;
+    cur = head;
+    while(cur->next != tail){
+        cur = cur->next;
+    }
+    tail = cur;
+    tail->next = NULL;
+    delete del;
+}
+
+void hapusTengah(int posisi){
+    if( posisi < 1 || posisi > countSingleLinkedList() ){
+        cout << "Posisi diluar jangkauan" << endl;
+    }else if( posisi == 1){
+        cout << "Posisi bukan posisi tengah" << endl;
+    }else{
+        int nomor = 1;
+        cur = head;
+        while( nomor <= posisi ){
+            if( nomor == posisi-1 ){
+                before = cur;
+            }
+            if( nomor == posisi ){
+                del = cur;
+            }
+            cur = cur->next;
+            nomor++;
+        }
+        before->next = cur;
+        delete del;
+    }
+}
+
+void ubahAwal(string judul, string status){
+    head->judul = judul;
+    head->status = status;
+}
+
+void ubahAkhir(string judul, string status){
+    cur = tail;
+    cur->judul = judul;
+    cur->status = status;
+}
+
+void ubahTengah(string judul, string status, int posisi){
+    if( posisi < 1 || posisi > countSingleLinkedList() ){
+        cout << "Posisi diluar jangkauan" << endl;
+    }else if( posisi == 1 || posisi == countSingleLinkedList() ){
+        cout << "Posisi bukan posisi tengah" << endl;
+    }else{
+        cur = head;
+        int nomor = 1;
+        while( nomor < posisi ){
+            cur = cur->next;
+            nomor++;
+        }
+        cur->judul = judul;
+        cur->status = status;
+    }
+}
+
+void lihatTugas(){
+    cur = head;
+    while( cur != NULL ){
+        cout << "Judul  : " << cur->judul << endl;
+        cout << "Status : " << cur->status << endl;
+        cur = cur->next;
+    }
+}
+
+int main(){
+    string judul;
+    string status;
+    int pil1, pil2, posisi;
+
+    start:
+    system("cls");
+    cout << "========== Menu Utama ==========" << endl;
+    cout << "1. Tambah tugas" << endl;
+    cout << "2. Hapus tugas" << endl;
+    cout << "3. Ubah tugas" << endl;
+    cout << "4. Lihat tugas" << endl;
+    cout << "Masukkan pilihan anda: ";
+    cin >> pil1;
+
+    switch(pil1){
+        case 1 :
+            cout << "1. Tambah di awal" << endl;
+            cout << "2. Tambah di akhir" << endl;
+            cout << "3. Tambah di tengah" << endl;
+            cout << "Pilih antara 1/2/3: ";
+            cin >> pil2;
+            if(pil2 == 1){
+                cout << "Masukkan judul tugas anda: ";
+                cin >> judul;
+                cout << "Masukkan status tugas anda: ";
+                cin >> status;
+                tambahAwal(judul, status);
+            }else if(pil2 == 2){
+                cout << "Masukkan judul tugas anda: ";
+                cin >> judul;
+                cout << "Masukkan status tugas anda: ";
+                cin >> status;
+                tambahAkhir(judul, status);
+            }else if(pil2 == 3){
+                cout << "Masukkan judul tugas anda: ";
+                cin >> judul;
+                cout << "Masukkan status tugas anda: ";
+                cin >> status;
+                cout << "Posisi berapa yang mau ditambahkan: ";
+                cin >> posisi;
+                tambahTengah(judul, status, posisi);
+            }else{
+                cout << "Inputan yang anda masukkan salah!" << endl;
+            }
+            goto start;
+            break;
+        case 2 :
+            cout << "1. Hapus di awal" << endl;
+            cout << "2. Hapus di akhir" << endl;
+            cout << "3. Hapus di tengah" << endl;
+            cout << "Pilih antara 1/2/3: ";
+            cin >> pil2;
+            if(pil2 == 1){
+                hapusAwal();
+            }else if(pil2 == 2){
+                hapusAkhir();
+            }else if(pil2 == 3){
+                cout << "Posisi berapa yang mau dihapus: ";
+                cin >> posisi;
+                hapusTengah(posisi);
+            }else{
+                cout << "Inputan yang anda masukkan salah!" << endl;
+            }
+            goto start;
+            break;
+        case 3 :
+            cout << "1. Ubah di awal" << endl;
+            cout << "2. Ubah di akhir" << endl;
+            cout << "3. Ubah di tengah" << endl;
+            cout << "Pilih antara 1/2/3: ";
+            cin >> pil2;
+            if(pil2 == 1){
+                cout << "Masukkan judul tugas baru: ";
+                cin >> judul;
+                cout << "Masukkan status tugas baru: ";
+                cin >> status;
+                ubahAwal(judul, status);
+            }else if(pil2 == 2){
+                cout << "Masukkan judul tugas baru: ";
+                cin >> judul;
+                cout << "Masukkan status tugas baru: ";
+                cin >> status;
+                ubahAkhir(judul, status);
+            }else if(pil2 == 3){
+                cout << "Posisi berapa yang mau diubah: ";
+                cin >> posisi;
+                cout << "Masukkan judul tugas baru: ";
+                cin >> judul;
+                cout << "Masukkan status tugas baru: ";
+                cin >> status;
+                ubahTengah(judul, status, posisi);
+            }else{
+                cout << "Inputan yang anda masukkan salah!" << endl;
+            }
+            goto start;
+            break;
+        case 4 :
+            lihatTugas();
+            break;
+        default :
+            cout << "Inputan yang anda masukkan salah!" << endl;
+    }
+    return 0;
+}
