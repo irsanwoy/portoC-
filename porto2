@@ -148,6 +148,7 @@ int main(){
 
     start:
     system("cls");
+    lihatTugas();
     cout << "========== Menu Utama ==========" << endl;
     cout << "1. Tambah tugas" << endl;
     cout << "2. Hapus tugas" << endl;
@@ -156,93 +157,109 @@ int main(){
     cout << "Masukkan pilihan anda: ";
     cin >> pil1;
 
-    switch(pil1){
-        case 1 :
-            cout << "1. Tambah di awal" << endl;
-            cout << "2. Tambah di akhir" << endl;
-            cout << "3. Tambah di tengah" << endl;
-            cout << "Pilih antara 1/2/3: ";
-            cin >> pil2;
-            if(pil2 == 1){
-                cout << "Masukkan judul tugas anda: ";
-                cin >> judul;
-                cout << "Masukkan status tugas anda: ";
-                cin >> status;
-                tambahAwal(judul, status);
-            }else if(pil2 == 2){
-                cout << "Masukkan judul tugas anda: ";
-                cin >> judul;
-                cout << "Masukkan status tugas anda: ";
-                cin >> status;
-                tambahAkhir(judul, status);
-            }else if(pil2 == 3){
-                cout << "Masukkan judul tugas anda: ";
-                cin >> judul;
-                cout << "Masukkan status tugas anda: ";
-                cin >> status;
-                cout << "Posisi berapa yang mau ditambahkan: ";
-                cin >> posisi;
-                tambahTengah(judul, status, posisi);
-            }else{
-                cout << "Inputan yang anda masukkan salah!" << endl;
-            }
+   switch (pil1) {
+    case 1:
+        cout << "1. Tambah di awal" << endl;
+        cout << "2. Tambah di akhir" << endl;
+        cout << "3. Tambah di tengah" << endl;
+        cout << "Pilih antara 1/2/3: ";
+        cin >> pil2;
+        cin.ignore(); // Membersihkan buffer input
+
+        if (pil2 == 1) {
+            cout << "Masukkan judul tugas anda: ";
+            getline(cin, judul);
+            cout << "Masukkan status tugas anda: ";
+            cin >> status;
+            cin.ignore(); // Membersihkan buffer input
+            tambahAwal(judul, status);
             goto start;
-            break;
-        case 2 :
-            cout << "1. Hapus di awal" << endl;
-            cout << "2. Hapus di akhir" << endl;
-            cout << "3. Hapus di tengah" << endl;
-            cout << "Pilih antara 1/2/3: ";
-            cin >> pil2;
-            if(pil2 == 1){
-                hapusAwal();
-            }else if(pil2 == 2){
-                hapusAkhir();
-            }else if(pil2 == 3){
-                cout << "Posisi berapa yang mau dihapus: ";
-                cin >> posisi;
-                hapusTengah(posisi);
-            }else{
-                cout << "Inputan yang anda masukkan salah!" << endl;
-            }
+        } else if (pil2 == 2) {
+            cout << "Masukkan judul tugas anda: ";
+            getline(cin, judul);
+            cout << "Masukkan status tugas anda: ";
+            cin >> status;
+            cin.ignore(); // Membersihkan buffer input
+            tambahAkhir(judul, status);
             goto start;
-            break;
-        case 3 :
-            cout << "1. Ubah di awal" << endl;
-            cout << "2. Ubah di akhir" << endl;
-            cout << "3. Ubah di tengah" << endl;
-            cout << "Pilih antara 1/2/3: ";
-            cin >> pil2;
-            if(pil2 == 1){
-                cout << "Masukkan judul tugas baru: ";
-                cin >> judul;
-                cout << "Masukkan status tugas baru: ";
-                cin >> status;
-                ubahAwal(judul, status);
-            }else if(pil2 == 2){
-                cout << "Masukkan judul tugas baru: ";
-                cin >> judul;
-                cout << "Masukkan status tugas baru: ";
-                cin >> status;
-                ubahAkhir(judul, status);
+        } else if (pil2 == 3) {
+            cout << "Masukkan judul tugas anda: ";
+            getline(cin, judul);
+            cout << "Masukkan status tugas anda: ";
+            cin >> status;
+            cout << "Posisi berapa yang mau ditambahkan: ";
+            cin >> posisi;
+            cin.ignore(); // Membersihkan buffer input
+            tambahTengah(judul, status, posisi);
+            goto start;
+        } else {
+            cout << "Inputan yang anda masukkan salah!" << endl;
+            goto start;
+        }
+        break;
+
+    case 2:
+        cout << "1. Hapus di awal" << endl;
+        cout << "2. Hapus di akhir" << endl;
+        cout << "3. Hapus di tengah" << endl;
+        cout << "Pilih antara 1/2/3: ";
+        cin >> pil2;
+        cin.ignore(); // Membersihkan buffer input
+
+        if (pil2 == 1) {
+            hapusAwal();
+        } else if (pil2 == 2) {
+            hapusAkhir();
+        } else if (pil2 == 3) {
+            cout << "Posisi berapa yang mau dihapus: ";
+            cin >> posisi;
+            cin.ignore(); // Membersihkan buffer input
+            hapusTengah(posisi);
+            goto start;
+        } else {
+            cout << "Inputan yang anda masukkan salah!" << endl;
+            goto start;
+        }
+        break;
+
+    case 3:
+        cout << "1. Ubah di awal" << endl;
+        cout << "2. Ubah di akhir" << endl;
+        cout << "3. Ubah di tengah" << endl;
+        cout << "Pilih antara 1/2/3: ";
+        cin >> pil2;
+        cin.ignore(); // Membersihkan buffer input
+
+        if (pil2 == 1) {
+            cout << "Masukkan judul tugas baru: ";
+            getline(cin, judul);
+            cout << "Masukkan status tugas baru: ";
+            cin >> status;
+            cin.ignore(); // Membersihkan buffer input
+            ubahAwal(judul, status);
+            goto start;
+        } else if (pil2 == 2) {
+            cout << "Masukkan judul tugas baru: ";
+            getline(cin, judul);
+            goto start;
             }else if(pil2 == 3){
                 cout << "Posisi berapa yang mau diubah: ";
                 cin >> posisi;
                 cout << "Masukkan judul tugas baru: ";
-                cin >> judul;
+                getline(cin,judul);
                 cout << "Masukkan status tugas baru: ";
                 cin >> status;
                 ubahTengah(judul, status, posisi);
+                goto start;
             }else{
                 cout << "Inputan yang anda masukkan salah!" << endl;
+                goto start;
             }
             goto start;
             break;
-        case 4 :
-            lihatTugas();
-            break;
         default :
             cout << "Inputan yang anda masukkan salah!" << endl;
+            goto start;
     }
     return 0;
 }
