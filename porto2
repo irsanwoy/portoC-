@@ -135,8 +135,10 @@ void ubahTengah(string judul, string deskripsi, int posisi){
 void lihatTodolist(){
     cur = head;
     while( cur != NULL ){
-        cout << "Judul  : " << cur->judul << endl;
-        cout << "deskripsi : " << cur->deskripsi << endl;
+        cout << "\t\t\t\tJudul     : " << cur->judul << endl;
+        cout << "\t\t\t\tdeskripsi : " << cur->deskripsi << endl;
+        cout<<endl;
+        cout<<"\t\t\t\t||-----------||"<<endl;
         cur = cur->next;
     }
 }
