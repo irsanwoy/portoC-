@@ -1,4 +1,5 @@
 #include<iostream>
+#include <iomanip>
 using namespace std;
 
 struct Todolist
@@ -132,16 +133,22 @@ void ubahTengah(string judul, string deskripsi, int posisi){
     }
 }
 
-void lihatTodolist(){
+void lihatTodolist() {
     cur = head;
-    while( cur != NULL ){
-        cout << "\t\t\t\tJudul     : " << cur->judul << endl;
-        cout << "\t\t\t\tdeskripsi : " << cur->deskripsi << endl;
-        cout<<endl;
-        cout<<"\t\t\t\t||-----------||"<<endl;
+    cout << "*********************************" << endl;
+    cout << "*            TODOLIST           *" << endl;
+    cout << "*********************************" << endl;
+    while (cur != NULL) {
+        cout << "*********************************" << endl;
+        cout << "|| Judul     : " <<  cur->judul << endl;
+        cout << "|| Deskripsi : " << cur->deskripsi  << endl;
+        cout << "*********************************" << endl;
         cur = cur->next;
     }
 }
+
+
+
 
 
 int main() {
@@ -166,7 +173,7 @@ int main() {
                 pil2 = 1;
 
                 if (pil2 == 1) {
-                    cout << "Masukkan judul Todolist anda: ";
+                    cout << "Masukkan judul Todolist anda    : ";
                     getline(cin, judul);
                     cout << "Masukkan deskripsi Todolist anda: ";
                     getline(cin, deskripsi);
@@ -184,21 +191,21 @@ int main() {
                 cin.ignore(); // Membersihkan buffer input
 				
                 if (pil2 == 1) {
-               	 cout << "Masukkan judul Todolist : ";
+               	 cout << "Masukkan judul Todolist     : ";
                	 getline(cin, judul);
                	 cout << "Masukkan deskripsi Todolist : ";
                  getline(cin, deskripsi);
                  tambahAwal(judul, deskripsi);
                 } else if (pil2 == 2) {
-                	cout << "Masukkan judul Todolist : ";
+                	cout << "Masukkan judul Todolist     : ";
               		getline(cin, judul);
               		cout << "Masukkan deskripsi Todolist : ";
                 	getline(cin, deskripsi);
                	    tambahAkhir(judul,deskripsi);
                 } else if (pil2 == 3) {
-                     cout << "Masukkan judul Todolist : ";
+                     cout << "Masukkan judul Todolist         : ";
                		 getline(cin, judul);
-               		 cout << "Masukkan deskripsi Todolist : ";
+               		 cout << "Masukkan deskripsi Todolist     : ";
                		 getline(cin, deskripsi);
                		 cout<<"masukan posisi yang mau di tambah :";
                		 cin>>posisi;
@@ -214,7 +221,6 @@ int main() {
                 cout << "3. Hapus di tengah" << endl;
                 cout << "Pilih antara 1/2/3: ";
                 cin >> pil2;
-// ...
             if (pil2 == 1) {
                 hapusAwal();
             } else if (pil2 == 2) {
@@ -236,25 +242,25 @@ int main() {
                 cin >> pil2;
                 cin.ignore();
             if (pil2 == 1) {
-                cout << "Masukkan judul Todolist baru: ";
+                cout << "Masukkan judul Todolist baru     : ";
                 getline(cin, judul);
-                cout<<"Masukan deskripsi Todolist baru:";
+                cout<<"Masukan deskripsi Todolist baru    :";
                 getline(cin,deskripsi);
-                cout << "Masukkan deskripsi Todolist baru: ";
+                cout << "Masukkan deskripsi Todolist baru : ";
                 ubahAwal(judul, deskripsi);
             } else if (pil2 == 2) {
-                cout << "Masukkan judul Todolist baru: ";
+                cout << "Masukkan judul Todolist baru     : ";
                 getline(cin, judul);
-                cout<<"Masukan deskripsi Todolist baru:";
+                cout<<"Masukan deskripsi Todolist baru    :";
                 getline(cin,deskripsi);
                 ubahAkhir(judul, deskripsi);
             } else if (pil2 == 3) {
-                cout << "Posisi berapa yang mau diubah: ";
+                cout << "Posisi berapa yang mau diubah    : ";
                 cin >> posisi;
                 cin.ignore();
-                cout << "Masukkan judul Todolist baru: ";
+                cout << "Masukkan judul Todolist baru     : ";
                 getline(cin, judul);
-                cout << "Masukkan deskripsi Todolist baru: ";
+                cout << "Masukkan deskripsi Todolist baru : ";
                 getline(cin, deskripsi);
                 ubahTengah(judul, deskripsi, posisi);
             } else {
