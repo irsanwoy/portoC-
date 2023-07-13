@@ -1,0 +1,267 @@
+#include<iostream>
+using namespace std;
+
+struct TodoList{
+	string judul;
+	string deskripsi;
+	
+	TodoList *next;
+}*head,*tail,*newNode,*del,*before,*cur;
+
+void buat(string judul, string deskripsi){
+	head = new TodoList();
+	head->judul = judul;
+	head->deskripsi = deskripsi;
+	head->next = NULL;
+	tail = head;
+}
+
+int hitungSimpul(){
+	int nomor = 0;
+	cur = head;
+	while(cur != NULL){
+		cur = cur->next;
+		nomor++;
+	}	
+	return nomor;
+}
+
+void tambahAwal(string judul, string deskripsi){
+	if(head == NULL){
+		cout<<"anda belum membuat todolist silahkan pilih opsi 1 terlebih dahulu"<<endl;
+	}else{
+	newNode = new TodoList();
+	newNode->judul = judul;
+	newNode->deskripsi = deskripsi;
+	
+	newNode->next = head;
+	head = newNode;
+	}
+}
+
+void tambahAkhir(string judul, string deskripsi){
+	if(head == NULL){
+		cout<<"anda belum membuat todolist silahkan pilih opsi 1 terlebih dahulu"<<endl;
+	}else{
+	newNode = new TodoList();
+	newNode->judul = judul;
+	newNode->deskripsi = deskripsi;
+	
+	newNode->next = NULL;
+	tail->next = newNode;
+	tail = newNode;
+	}
+}
+
+void tambahTengah(string judul, string deskripsi, int posisi){
+	if(posisi < 1 || posisi > hitungSimpul()){
+		cout<<"posisi diluar jangkauan"<<endl;
+	}else if(posisi == 1 || posisi == hitungSimpul()){
+		cout<<"posisi bukan posisi tengah"<<endl;
+	}else{
+		newNode = new TodoList();
+		newNode->judul = judul;
+		newNode->deskripsi = deskripsi;
+		
+		cur = head;
+		int nomor = 1;
+		while(nomor < posisi-1){
+			cur = cur->next;
+			nomor++;
+		}
+		newNode->next = cur->next;
+		cur->next = newNode;	
+	}
+}
+
+void hapusAwal(){
+	del = head;
+	head = head->next;
+	delete del;
+}
+
+void hapusAkhir(){
+	del = tail;
+	cur = head;
+	while(cur->next != tail){
+		cur = cur->next;
+	}
+	cur->next = NULL;
+	tail = cur;
+	delete del;
+}
+
+void hapusTengah(int posisi){
+	if(posisi < 1 || posisi > hitungSimpul()){
+		cout<<"posisi diluar jangkauan"<<endl;
+	}else if(posisi == 1 || posisi == hitungSimpul()){
+		cout<<"posisi bukan posisi tengah"<<endl;
+	}else{
+		int nomor = 1;
+		cur = head;
+		while(nomor <= posisi){
+			if(nomor <= posisi-1){
+				before = cur;
+			}
+			if(nomor == posisi){
+				del = cur;
+			}
+			cur = cur->next;
+			nomor++;
+		}
+		before->next = cur->next;
+		delete del;
+	}
+}
+
+void ubahAwal(string judul, string deskripsi){
+	head->judul = judul;
+	head->deskripsi = deskripsi;
+}
+
+void ubahAkhir(string judul, string deskripsi){
+	tail->judul = judul;
+	tail->deskripsi = deskripsi;
+}
+
+void ubahTengah(string judul, string deskripsi, int posisi){
+	if(posisi < 1 || posisi > hitungSimpul()){
+		cout<<"posisi diluar jangkauan"<<endl;
+	}else if(posisi == 1 || posisi == hitungSimpul()){
+		cout<<"posisi bukan posisi tengah"<<endl;
+	}else{
+		cur = head;
+		int nomor = 1;
+		while(nomor < posisi){
+			cur = cur->next;
+			nomor++;
+		}
+		cur->judul = judul;
+		cur->deskripsi = deskripsi;
+	}
+}
+
+void lihatTodolist() {
+    cur = head;
+    cout << "*********************************" << endl;
+    cout << "*            TODOLIST           *" << endl;
+    cout << "*********************************" << endl;
+    while (cur != NULL) {
+        cout << "*********************************" << endl;
+        cout << "|| Judul     : " <<  cur->judul << endl;
+        cout << "|| Deskripsi : " << cur->deskripsi  << endl;
+        cout << "*********************************" << endl;
+        cur = cur->next;
+    }
+}
+
+int main(){
+	int pil1, pil2, posisi;
+	string judul, deskripsi;
+	while(true){
+		system("cls");
+		lihatTodolist();
+		cout<<"==========  Menu Utama  =========="<<endl;
+		cout<<"1. Buat TodoList"<<endl;
+		cout<<"2. Tambah TodoList"<<endl;
+		cout<<"3. Hapus TodoList"<<endl;
+		cout<<"4. Ubah TodoList"<<endl;
+		cout<<"Masukan Pilihan Anda :";
+		cin>>pil1;
+		cin.ignore();
+		
+		switch(pil1){
+			case 1 :
+				cout<<"Masukan Judul TodoList Anda     :";
+				getline(cin,judul);
+				cout<<"Masukan Deskripsi TodoList Anda :";
+				getline(cin,deskripsi);
+				buat(judul,deskripsi);
+				break;
+			case 2 :
+				cout<<"1.Tambah Diawal"<<endl;
+				cout<<"2.Tambah Diakhir"<<endl;
+				cout<<"3.Tambah Tengah"<<endl;
+				cout<<"pilih antara 1/2/3 :";
+				cin>>pil2;
+				cin.ignore();
+				if(pil2 == 1){
+					cout<<"Masukan Judul TodoList Anda     :";
+					getline(cin,judul);
+					cout<<"Masukan Deskripsi TodoList Anda :";
+					getline(cin,deskripsi);
+					tambahAwal(judul,deskripsi);
+				}else if(pil2 == 2){
+					cout<<"Masukan Judul TodoList Anda     :";
+					getline(cin,judul);
+					cout<<"Masukan Deskripsi TodoList Anda :";
+					getline(cin,deskripsi);
+					tambahAkhir(judul,deskripsi);
+				}else if(pil2 == 3){
+					cout<<"Masukan Posisi Yang Mau Ditambah :";
+					cin>>posisi;
+					cin.ignore();
+					cout<<"Masukan Judul TodoList Anda     :";
+					getline(cin,judul);
+					cout<<"Masukan Deskripsi TodoList Anda :";
+					getline(cin,deskripsi);
+					tambahTengah(judul,deskripsi, posisi);
+				}else{
+					cout<<"Inputan Yang Anda Masukan Salah!"<<endl;
+				}
+				break;
+			case 3 :
+				cout<<"1.Hapus Di Awal"<<endl;
+				cout<<"2.Hapus Di Akhir"<<endl;
+				cout<<"2.Hapus Di Tengah"<<endl;
+				cout<<"Pilih Antara 1/2/3 :";
+				cin>>pil2;
+				cin.ignore();
+				
+				if(pil2 == 1){
+					hapusAwal();
+				}else if(pil2 == 2){
+					hapusAkhir();
+				}else if(pil2 == 3){
+					cout<<"Masukan Posisi Yang Mau Di Hapus";
+					cin>>posisi;
+					hapusTengah(posisi);
+				}else{
+					cout<<"Inputan Yang Anda Masuan Salah!"<<endl;
+				}
+				break;
+			case 4 :
+				cout<<"1.Ubah Di Awal"<<endl;
+				cout<<"2.Ubah Di Akhir"<<endl;
+				cout<<"3.Ubah Di Tengah"<<endl;
+				cout<<"Pilih Antara 1/2/3 :";
+				cin>>pil2;
+				cin.ignore();
+				if(pil2 == 1){
+					cout<<"Masukan Judul TodoList Anda     :";
+					getline(cin,judul);
+					cout<<"Masukan Deskripsi TodoList Anda :";
+					getline(cin,deskripsi);
+					ubahAwal(judul,deskripsi);
+				}else if(pil2 == 2){
+					cout<<"Masukan Judul TodoList Anda     :";
+					getline(cin,judul);
+					cout<<"Masukan Deskripsi TodoList Anda :";
+					getline(cin,deskripsi);
+					ubahAkhir(judul,deskripsi);
+				}else if(pil2 == 3){
+					cout<<"Masukan Posisi Yang Mau Ditambah :";
+					cin>>posisi;
+					cout<<"Masukan Judul TodoList Anda     :";
+					getline(cin,judul);
+					cout<<"Masukan Deskripsi TodoList Anda :";
+					getline(cin,deskripsi);
+					cin.ignore();
+					ubahTengah(judul,deskripsi, posisi);
+				}else{
+					cout<<"Inputan Anda Salah!";
+				}
+				break;
+		}
+	}
+}
